@@ -3,9 +3,10 @@ import IPC from "./General/IPC";
 import { BrowserWindow } from "electron";
 
 import CustomWindow from "../customWindow";
-import path from "path";
 
 import windowControls from "./windowControls";
+
+import * as globals from "../globals";
 
 const nameAPI = "windowManager";
 
@@ -28,23 +29,27 @@ export default windowManager;
 // Enter here the functions for ElectronJS
 
 async function openInNewWindow(
-  mainWindow: BrowserWindow,
+  customWindow: BrowserWindow,
   event: Electron.IpcMainEvent,
   message: any
 ) {
   console.log(message);
-  await createMainWindow(message.link);
+  await createMainWindow();
 }
 
-async function createMainWindow(destination: string) {
+async function createMainWindow() {
   let customWindow: CustomWindow;
   const settings = {
-    title: "MEMENTO - Svelte, Tailwind, Electron & TypeScript",
+    title: "-",
+    x: Math.floor(Math.random() * 64),
+    y: Math.floor(Math.random() * 64),
   };
+
+  // const urlPage = destination;
+  const urlPage = globals.get.mainUrl();
   customWindow = new CustomWindow(settings);
-  const urlPage = destination;
   customWindow.createWindow(urlPage);
 
   await customWindow.setIpcMain([windowControls]);
-  return customWindow;
+  // return customWindow;
 }

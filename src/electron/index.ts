@@ -1,7 +1,6 @@
-import { app, BrowserView } from "electron";
+import { app } from "electron";
 import { autoUpdater } from "electron-updater";
 import path from "path";
-
 import CustomWindow from "./customWindow";
 // import { view } from "./customBrowserView";
 
@@ -9,6 +8,10 @@ import systemInfo from "./IPC/systemInfo";
 import updaterInfo from "./IPC/updaterInfo";
 import windowControls from "./IPC/windowControls";
 import windowManager from "./IPC/windowManager";
+
+import * as globals from "./globals";
+
+globals.set.mainURL(path.join(__dirname, "www", "index.html"));
 
 require("electron-reload")(__dirname);
 
@@ -36,10 +39,10 @@ app.on("window-all-closed", () => {
 
 async function createMainWindow() {
   const settings = {
-    title: "MEMENTO - Svelte, Tailwind, Electron & TypeScript",
+    title: "MEMENTO - Electron BrowserView",
   };
   mainWindow = new CustomWindow(settings);
-  const urlPage = path.join(__dirname, "www", "index.html");
+  const urlPage = globals.get.mainUrl();
   mainWindow.createWindow(urlPage);
 
   await mainWindow.setIpcMain([

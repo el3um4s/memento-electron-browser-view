@@ -1,4 +1,4 @@
-import { app, BrowserWindow, BrowserView, ipcMain } from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
 import path from "path";
 import EventEmitter from "events";
 import IPC from "./IPC/General/IPC";
@@ -51,11 +51,11 @@ class CustomWindow {
     api.forEach(async (el) => await el.initIpcMain(ipcMain, this.window));
   }
 
-  addBrowserView(view: BrowserView) {
-    this.window.setBrowserView(view);
-    view.setBounds({ x: 0, y: 100, width: 800, height: 300 });
-    view.webContents.loadURL("https://google.com/");
-  }
+  // addBrowserView(view: BrowserView) {
+  //   this.window.setBrowserView(view);
+  //   view.setBounds({ x: 0, y: 100, width: 800, height: 300 });
+  //   view.webContents.loadURL("https://google.com/");
+  // }
 }
 
 export default CustomWindow;
