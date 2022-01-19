@@ -1,0 +1,8 @@
+/node_modules
+/out
+/dist
+tests/screenshot
+tests/tracing
+test-results
+
+.DS_Store
