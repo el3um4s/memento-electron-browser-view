@@ -6,8 +6,18 @@
 
   import Card from "./Components/Cards/Card.svelte";
 
+  let chrome, node, electron;
+  globalThis.api.systemInfo.receive("getSystemInfo", (data) => {
+    chrome = data.chrome;
+    node = data.node;
+    electron = data.electron;
+    console.log(node, chrome, electron);
+  });
+
   function openInNewWindow(e) {
     console.log(e.detail);
+    globalThis.api.systemInfo.send("requestSystemInfo", null);
+    globalThis.api.windowManager.send("openInNewWindow", e.detail);
   }
 </script>
 
@@ -38,8 +48,5 @@
   </section>
 </MainWithTitlebar>
 
-<style>
-  p {
-    @apply m-1;
-  }
+<style lang="postcss">
 </style>
