@@ -1,7 +1,7 @@
+import { BrowserWindow } from "electron";
+
 import { SendChannels } from "./General/channelsInterface";
 import IPC from "./General/IPC";
-import path from "path";
-import { BrowserWindow, BrowserView } from "electron";
 
 import CustomWindow from "../customWindow";
 
@@ -34,7 +34,6 @@ async function openInNewWindow(
   event: Electron.IpcMainEvent,
   message: any
 ) {
-  console.log(message);
   let win = await createMainWindow();
   await win.addBrowserView(message.link);
   win.setIpcMainView([windowControls]);
