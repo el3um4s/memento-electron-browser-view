@@ -2,7 +2,6 @@ import { app } from "electron";
 import { autoUpdater } from "electron-updater";
 import path from "path";
 import CustomWindow from "./customWindow";
-// import { view } from "./customBrowserView";
 
 import systemInfo from "./IPC/systemInfo";
 import updaterInfo from "./IPC/updaterInfo";
