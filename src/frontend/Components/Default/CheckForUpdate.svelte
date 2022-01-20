@@ -46,7 +46,8 @@
     downloading = true;
     updateAvailable = false;
     let log_message = "Download speed: " + data.bytesPerSecond;
-    log_message = log_message + " - Downloaded " + data.percent + "%";
+    log_message =
+      log_message + " - Downloaded " + data.percent.toFixed(2) + "%";
     log_message =
       log_message + " (" + data.transferred + "/" + data.total + ")";
     downloadMessage = log_message;

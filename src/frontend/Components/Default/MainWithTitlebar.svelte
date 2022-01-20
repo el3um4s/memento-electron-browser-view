@@ -53,6 +53,7 @@
   }
   .page {
     @apply p-5 overflow-y-auto w-full border border-cyan-900;
+    overflow-y: overlay;
     height: calc(100% - theme("spacing.8"));
   }
 
@@ -61,10 +62,11 @@
   }
 
   .page::-webkit-scrollbar-track {
-    background-color: theme("colors.cyan.900");
+    /* background-color: theme("colors.cyan.900"); */
 
     border: 2px solid theme("colors.cyan.900");
     border-left: 8px solid theme("colors.cyan.800");
+    background-color: inherit;
   }
 
   .page::-webkit-scrollbar-thumb {
@@ -72,12 +74,11 @@
     border-left: 8px solid theme("colors.cyan.800");
   }
 
-  .page::-webkit-scrollbar-track:hover {
-    border: 2px solid theme("colors.cyan.900");
-  }
-
   .page::-webkit-scrollbar-thumb:hover {
     background-color: theme("colors.cyan.600");
     border: 0;
   }
+  /* .page::-webkit-scrollbar-track:hover {
+    border: 2px solid theme("colors.cyan.900");
+  } */
 </style>

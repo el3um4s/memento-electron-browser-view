@@ -4,6 +4,17 @@
 
 Template to create a desktop app with Svelte, TailwindCSS, Electron and TypeScript (with electron-updater, electron-reload and electron-builder)
 
+https://www.electronjs.org/docs/latest/api/browser-view
+https://slack.engineering/growing-pains-migrating-slacks-desktop-app-to-browserview/
+https://www.figma.com/blog/introducing-browserview-for-electron/
+https://dev.to/thanhlm/electron-multiple-tabs-without-dealing-with-performance-2cma
+https://github.com/itsderek23/electron-hybrid-browserview/blob/master/src/index.js
+https://github.com/brrd/electron-tabs/blob/master/index.js
+https://cameronnokes.com/blog/how-to-create-a-hybrid-electron-app/
+https://stackoverflow.com/questions/38266951/how-to-create-chrome-like-tab-on-electron
+https://stackoverflow.com/questions/46172471/electron-app-with-multiple-tabbed-browser-windows-connecting-to-https-sites
+https://www.programmerall.com/article/65932048988/
+
 ## Get Started
 
 This is a project template for [Svelte](https://svelte.dev) and [Electron](https://www.electronjs.org/) apps. It lives at https://github.com/el3um4s/memento-svelte-electron-typescript.
