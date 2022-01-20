@@ -1,5 +1,11 @@
-import { BrowserWindow, IpcMain } from "electron";
+import { BrowserWindow, BrowserView, IpcMain } from "electron";
 import { APIChannels, SendChannels } from "./channelsInterface";
+
+import { toTryAsync } from "@el3um4s/to-try";
+
+const catchError = (e: any) => {
+  if (e! instanceof TypeError) console.log(e);
+};
 
 export default class IPC {
   nameAPI: string = "api";
@@ -20,12 +26,18 @@ export default class IPC {
     };
   }
 
-  async initIpcMain(ipcMain: IpcMain, customWindow: BrowserWindow) {
+  async initIpcMain(
+    ipcMain: IpcMain,
+    customWindow: BrowserWindow | BrowserView
+  ) {
     if (customWindow) {
       Object.keys(this.validSendChannel).forEach((key) => {
         ipcMain.on(key, async (event, message) => {
           try {
-            if (!!customWindow && customWindow.id === event.sender.id) {
+            if (
+              !!customWindow &&
+              customWindow.webContents.id === event.sender.id
+            ) {
               await this.validSendChannel[key](customWindow, event, message);
             }
           } catch (e) {

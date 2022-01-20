@@ -1,6 +1,7 @@
 import { SendChannels } from "./General/channelsInterface";
 import IPC from "./General/IPC";
-import { BrowserWindow } from "electron";
+import path from "path";
+import { BrowserWindow, BrowserView } from "electron";
 
 import CustomWindow from "../customWindow";
 
@@ -34,7 +35,9 @@ async function openInNewWindow(
   message: any
 ) {
   console.log(message);
-  await createMainWindow();
+  let win = await createMainWindow();
+  await win.addBrowserView(message.link);
+  win.setIpcMainView([windowControls]);
 }
 
 async function createMainWindow() {
@@ -45,11 +48,10 @@ async function createMainWindow() {
     y: Math.floor(Math.random() * 64),
   };
 
-  // const urlPage = destination;
-  const urlPage = globals.get.mainUrl();
+  const urlPage = globals.get.mainUrl() + "#browserview";
   customWindow = new CustomWindow(settings);
   customWindow.createWindow(urlPage);
 
   await customWindow.setIpcMain([windowControls]);
-  // return customWindow;
+  return customWindow;
 }

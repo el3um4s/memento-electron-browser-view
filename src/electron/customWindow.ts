@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from "electron";
+import { app, BrowserWindow, BrowserView, ipcMain } from "electron";
 import path from "path";
 import EventEmitter from "events";
 import IPC from "./IPC/General/IPC";
@@ -17,6 +17,8 @@ class CustomWindow {
   window!: BrowserWindow;
   settings: { [key: string]: any };
   onEvent: EventEmitter = new EventEmitter();
+
+  browserView!: BrowserView;
 
   constructor(settings: { [key: string]: any } | null = null) {
     this.settings = settings
@@ -51,11 +53,35 @@ class CustomWindow {
     api.forEach(async (el) => await el.initIpcMain(ipcMain, this.window));
   }
 
-  // addBrowserView(view: BrowserView) {
-  //   this.window.setBrowserView(view);
-  //   view.setBounds({ x: 0, y: 100, width: 800, height: 300 });
-  //   view.webContents.loadURL("https://google.com/");
-  // }
+  async addBrowserView(link: string) {
+    const [width, height] = this.window.getSize();
+
+    this.browserView = new BrowserView({
+      webPreferences: {
+        nodeIntegration: false,
+        contextIsolation: true,
+        nativeWindowOpen: true,
+        preload: path.join(__dirname, "preload.js"),
+      },
+    });
+
+    this.window.setBrowserView(this.browserView);
+    this.browserView.setBounds({
+      x: 1,
+      y: 32,
+      width: width - 2,
+      height: height - 33,
+    });
+    this.browserView.setAutoResize({
+      width: true,
+      height: true,
+    });
+    this.browserView.webContents.loadURL(link);
+  }
+
+  async setIpcMainView(api: Array<IPC>) {
+    api.forEach(async (el) => await el.initIpcMain(ipcMain, this.browserView));
+  }
 }
 
 export default CustomWindow;

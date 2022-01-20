@@ -17,18 +17,11 @@ require("electron-reload")(__dirname);
 
 let mainWindow: CustomWindow;
 
-// let view: BrowserView;
-// app.commandLine.appendSwitch('disable-gpu');
-// app.commandLine.appendArgument('disable-gpu');
+app.commandLine.appendSwitch("disable-gpu");
+app.commandLine.appendArgument("disable-gpu");
 
 app.on("ready", async () => {
   await createMainWindow();
-  //   view = new BrowserView({
-  //     webPreferences: {
-  //       preload: path.join(__dirname, "preload.js"), // needs full path
-  //     },
-  //   });
-  //   mainWindow.addBrowserView(view);
 });
 
 app.on("window-all-closed", () => {
@@ -42,7 +35,7 @@ async function createMainWindow() {
     title: "MEMENTO - Electron BrowserView",
   };
   mainWindow = new CustomWindow(settings);
-  const urlPage = globals.get.mainUrl();
+  const urlPage = globals.get.mainUrl() + "#main";
   mainWindow.createWindow(urlPage);
 
   await mainWindow.setIpcMain([

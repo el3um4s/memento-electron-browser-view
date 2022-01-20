@@ -6,46 +6,42 @@
 
   import Card from "./Components/Cards/Card.svelte";
 
-  let chrome, node, electron;
-  globalThis.api.systemInfo.receive("getSystemInfo", (data) => {
-    chrome = data.chrome;
-    node = data.node;
-    electron = data.electron;
-    console.log(node, chrome, electron);
-  });
+  const hash = globalThis.location.hash.substring(1);
 
   function openInNewWindow(e) {
-    console.log(e.detail);
-    globalThis.api.systemInfo.send("requestSystemInfo", null);
     globalThis.api.windowManager.send("openInNewWindow", e.detail);
   }
+
+  // to do: change title page
 </script>
 
 <svelte:head>
-  <title>MEMENTO - Svelte, TailwindCSS, Electron and TypeScript</title>
+  <title>MEMENTO - Electron Browser View</title>
 </svelte:head>
 
 <MainWithTitlebar title="MEMENTO - Electron Browser View">
-  <section class="space-y-6">
-    <Card
-      title="Svelte tutorial"
-      link="https://svelte.dev/tutorial"
-      on:open-in-new-window={openInNewWindow}
-    >
-      <div slot="description">How to build Svelte apps</div>
-    </Card>
+  {#if hash === "main"}
+    <section class="space-y-6">
+      <Card
+        title="Svelte tutorial"
+        link="https://svelte.dev/tutorial"
+        on:open-in-new-window={openInNewWindow}
+      >
+        <div slot="description">How to build Svelte apps</div>
+      </Card>
 
-    <Card
-      title="Repository"
-      link="https://github.com/el3um4s/memento-electron-browser-view"
-      on:open-in-new-window={openInNewWindow}
-    >
-      <div slot="description">View the source code</div>
-    </Card>
+      <Card
+        title="Repository"
+        link="https://github.com/el3um4s/memento-electron-browser-view"
+        on:open-in-new-window={openInNewWindow}
+      >
+        <div slot="description">View the source code</div>
+      </Card>
 
-    <InfoApp />
-    <CheckForUpdate />
-  </section>
+      <InfoApp />
+      <CheckForUpdate />
+    </section>
+  {/if}
 </MainWithTitlebar>
 
 <style lang="postcss">
